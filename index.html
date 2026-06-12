@@ -3,90 +3,95 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ayush Verma — Supply Chain & Data Analytics</title>
+  <title>Ayush Verma — Supply Chain & Data Analyst</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0a0d14;
-      --bg2:       #0f1320;
-      --bg3:       #141826;
-      --border:    rgba(255,255,255,0.07);
-      --accent:    #4f8ef7;
-      --accent2:   #7c5cfc;
-      --text:      #e4e8f0;
-      --muted:     #7a8499;
-      --card:      #111520;
+      --bg:      #0a0d14;
+      --bg2:     #0f1320;
+      --bg3:     #141826;
+      --border:  rgba(255,255,255,0.09);
+      --accent:  #4f8ef7;
+      --accent2: #7c5cfc;
+      --text:    #ffffff;
+      --body:    #c8d0e0;
+      --muted:   #8a95ad;
+      --card:    #111520;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
-      color: var(--text);
+      color: var(--body);
       font-family: 'Inter', sans-serif;
-      line-height: 1.6;
+      line-height: 1.7;
       overflow-x: hidden;
     }
 
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 1.1rem 6vw;
-      background: rgba(10,13,20,0.85);
-      backdrop-filter: blur(12px);
+      background: rgba(10,13,20,0.88);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
     .nav-logo {
       font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700; font-size: 1.15rem;
+      font-weight: 700; font-size: 1.2rem;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
     .nav-links a {
-      color: var(--muted); text-decoration: none; font-size: 0.9rem;
-      font-weight: 500; letter-spacing: 0.02em;
-      transition: color 0.2s;
+      color: var(--muted); text-decoration: none; font-size: 0.88rem;
+      font-weight: 500; letter-spacing: 0.03em; transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--text); }
 
+    /* ── HERO ── */
     #hero {
       min-height: 100vh;
       display: flex; align-items: center;
       padding: 7rem 6vw 4rem;
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
     .hero-glow {
-      position: absolute; top: -10%; right: -5%;
-      width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
-      background: radial-gradient(circle, rgba(79,142,247,0.12) 0%, transparent 70%);
+      position: absolute; top: -15%; right: -5%;
+      width: 60vw; height: 60vw; max-width: 750px; max-height: 750px;
+      background: radial-gradient(circle, rgba(79,142,247,0.13) 0%, transparent 65%);
       pointer-events: none;
     }
     .hero-glow2 {
-      position: absolute; bottom: 0; left: -10%;
-      width: 40vw; height: 40vw; max-width: 500px;
-      background: radial-gradient(circle, rgba(124,92,252,0.08) 0%, transparent 70%);
+      position: absolute; bottom: -5%; left: -10%;
+      width: 45vw; height: 45vw; max-width: 550px;
+      background: radial-gradient(circle, rgba(124,92,252,0.1) 0%, transparent 65%);
       pointer-events: none;
     }
-    .hero-content { max-width: 700px; position: relative; z-index: 1; }
+    .hero-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 4rem; width: 100%; position: relative; z-index: 1;
+    }
+    .hero-content { max-width: 600px; }
     .hero-tag {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.13em;
       text-transform: uppercase; color: var(--accent);
-      background: rgba(79,142,247,0.1); border: 1px solid rgba(79,142,247,0.25);
-      padding: 0.35rem 0.9rem; border-radius: 100px;
-      margin-bottom: 1.5rem;
+      background: rgba(79,142,247,0.1); border: 1px solid rgba(79,142,247,0.28);
+      padding: 0.35rem 0.95rem; border-radius: 100px; margin-bottom: 1.5rem;
     }
     .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.4rem, 5.5vw, 4rem);
-      font-weight: 700; line-height: 1.1;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700; line-height: 1.1; color: var(--text);
       margin-bottom: 1.2rem;
     }
     h1 span {
@@ -94,163 +99,245 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .hero-sub {
-      font-size: 1.1rem; color: var(--muted); max-width: 540px;
-      margin-bottom: 2.5rem;
+      font-size: 1.1rem; color: var(--body); max-width: 520px;
+      margin-bottom: 2.5rem; line-height: 1.75;
     }
     .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
     .btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
       padding: 0.8rem 1.8rem; border-radius: 8px;
       font-size: 0.92rem; font-weight: 600;
-      text-decoration: none; transition: all 0.2s; cursor: pointer;
+      text-decoration: none; transition: all 0.22s; cursor: pointer; border: none;
     }
     .btn-primary {
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #fff; border: none;
+      color: #fff;
     }
-    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,142,247,0.3); }
     .btn-ghost {
       background: transparent; color: var(--text);
       border: 1px solid var(--border);
     }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
+    /* ── PHOTO ── */
+    .hero-photo-wrap {
+      flex-shrink: 0; position: relative;
+    }
+    .hero-photo-ring {
+      width: 300px; height: 300px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      padding: 3px; position: relative;
+    }
+    .hero-photo-ring::before {
+      content: '';
+      position: absolute; inset: -8px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(79,142,247,0.25), rgba(124,92,252,0.25));
+      filter: blur(12px); z-index: -1;
+    }
+    .hero-photo-inner {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: #fff; overflow: hidden; position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-photo-inner img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top center;
+      display: block;
+    }
+    .hero-photo-inner::after {
+      content: ''; position: absolute; inset: 0; border-radius: 50%;
+      box-shadow: inset 0 0 40px rgba(10,13,20,0.45);
+      pointer-events: none;
+    }
+    .hero-photo-placeholder {
+      font-size: 5rem; color: var(--muted);
+    }
+
+    /* ── SECTION COMMON ── */
     section { padding: 6rem 6vw; }
     .section-label {
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--accent);
-      margin-bottom: 0.6rem;
+      font-size: 0.73rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.55rem;
     }
     .section-title {
       font-family: 'Space Grotesk', sans-serif;
       font-size: clamp(1.7rem, 3.5vw, 2.4rem);
-      font-weight: 700; margin-bottom: 1rem;
+      font-weight: 700; margin-bottom: 1rem; color: var(--text);
     }
-    .section-desc { color: var(--muted); max-width: 520px; margin-bottom: 3rem; }
-    .divider { width: 40px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; margin-bottom: 3rem; }
+    .section-desc { color: var(--body); max-width: 540px; margin-bottom: 3rem; }
+    .divider {
+      width: 44px; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px; margin-bottom: 3rem;
+    }
 
+    /* ── ABOUT ── */
     #about { background: var(--bg2); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-    .about-text p { color: var(--muted); margin-bottom: 1.2rem; line-height: 1.75; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem; align-items: start; }
+    .about-text p { color: var(--body); margin-bottom: 1.25rem; line-height: 1.8; }
     .about-text p strong { color: var(--text); font-weight: 600; }
-    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
-    .stat-card {
+
+    /* Value cards */
+    .value-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+    .value-card {
       background: var(--bg3); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1.4rem 1.2rem;
+      border-radius: 14px; padding: 1.4rem 1.2rem;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     }
-    .stat-number {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2rem; font-weight: 700;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    .value-card:hover {
+      border-color: rgba(79,142,247,0.45);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(79,142,247,0.12);
     }
-    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+    .vc-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(79,142,247,0.18), rgba(124,92,252,0.18));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: var(--accent); margin-bottom: 0.75rem;
+    }
+    .vc-title { font-weight: 700; font-size: 0.9rem; color: var(--text); margin-bottom: 0.3rem; }
+    .vc-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── TIMELINE ── */
+    .timeline-wrap { }
     .timeline { position: relative; }
     .timeline::before {
-      content: ''; position: absolute; left: 11px; top: 0; bottom: 0;
+      content: ''; position: absolute; left: 11px; top: 6px; bottom: 0;
       width: 1px; background: var(--border);
     }
-    .tl-item { display: flex; gap: 1.5rem; margin-bottom: 2rem; position: relative; }
+    .tl-item { display: flex; gap: 1.5rem; margin-bottom: 1.8rem; position: relative; }
     .tl-dot {
       width: 22px; height: 22px; min-width: 22px;
-      border-radius: 50%; background: var(--bg);
-      border: 2px solid var(--accent); margin-top: 3px;
-      display: flex; align-items: center; justify-content: center;
-      z-index: 1;
+      border-radius: 50%; background: var(--bg2);
+      border: 2px solid var(--accent); margin-top: 4px;
+      display: flex; align-items: center; justify-content: center; z-index: 1;
     }
     .tl-dot-inner { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
-    .tl-role { font-weight: 600; font-size: 0.95rem; }
-    .tl-company { color: var(--accent); font-size: 0.85rem; font-weight: 500; margin: 0.1rem 0; }
-    .tl-date { color: var(--muted); font-size: 0.78rem; margin-bottom: 0.4rem; }
-    .tl-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.6; }
+    .tl-dot.dim { border-color: var(--accent2); }
+    .tl-dot.dim .tl-dot-inner { background: var(--accent2); }
+    .tl-role { font-weight: 700; font-size: 0.92rem; color: var(--text); }
+    .tl-company { color: var(--accent); font-size: 0.82rem; font-weight: 600; margin: 0.1rem 0; }
+    .tl-company.purple { color: var(--accent2); }
+    .tl-meta { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 0.35rem; }
+    .tl-date { color: var(--muted); font-size: 0.75rem; }
+    .tl-loc { color: var(--muted); font-size: 0.75rem; }
+    .tl-loc::before { content: '📍 '; font-size: 0.65rem; }
+    .tl-desc { color: var(--body); font-size: 0.82rem; line-height: 1.6; }
 
+    /* ── SKILLS ── */
     #skills { background: var(--bg); }
-    .skills-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+    .skills-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
     .skill-group {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 1.6rem;
-      transition: border-color 0.25s, transform 0.25s;
+      border-radius: 14px; padding: 1.7rem;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
     }
-    .skill-group:hover { border-color: rgba(79,142,247,0.4); transform: translateY(-3px); }
+    .skill-group:hover {
+      border-color: rgba(79,142,247,0.45);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(79,142,247,0.1);
+    }
     .sg-icon {
-      width: 40px; height: 40px; border-radius: 10px;
-      background: linear-gradient(135deg, rgba(79,142,247,0.15), rgba(124,92,252,0.15));
+      width: 44px; height: 44px; border-radius: 11px;
+      background: linear-gradient(135deg, rgba(79,142,247,0.16), rgba(124,92,252,0.16));
       display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem; margin-bottom: 1rem;
+      font-size: 1.15rem; color: var(--accent); margin-bottom: 1rem;
     }
-    .sg-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.8rem; }
+    .sg-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.85rem; color: var(--text); }
     .skill-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
     .skill-tag {
-      font-size: 0.75rem; padding: 0.3rem 0.7rem;
+      font-size: 0.74rem; padding: 0.3rem 0.75rem;
       background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-      border-radius: 6px; color: var(--muted);
+      border-radius: 6px; color: var(--body);
+      cursor: default;
+      transition: all 0.2s ease;
+    }
+    .skill-tag:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: rgba(79,142,247,0.1);
+      box-shadow: 0 0 10px rgba(79,142,247,0.35), 0 0 20px rgba(79,142,247,0.15);
+      transform: translateY(-1px);
     }
 
+    /* ── PROJECTS ── */
     #projects { background: var(--bg2); }
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
     .project-card {
       background: var(--card); border: 1px solid var(--border);
       border-radius: 16px; padding: 1.8rem;
-      transition: border-color 0.25s, transform 0.25s;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
       display: flex; flex-direction: column;
+      text-decoration: none; color: inherit;
     }
-    .project-card:hover { border-color: rgba(79,142,247,0.4); transform: translateY(-4px); }
+    .project-card:hover {
+      border-color: rgba(79,142,247,0.45);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(79,142,247,0.12);
+    }
     .pc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
     .pc-icon {
-      width: 46px; height: 46px; border-radius: 12px;
+      width: 48px; height: 48px; border-radius: 12px;
       background: linear-gradient(135deg, rgba(79,142,247,0.2), rgba(124,92,252,0.2));
-      display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--accent);
     }
     .pc-badge {
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em;
-      padding: 0.25rem 0.6rem; border-radius: 6px;
-      background: rgba(79,142,247,0.12); color: var(--accent); border: 1px solid rgba(79,142,247,0.2);
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em;
+      padding: 0.25rem 0.65rem; border-radius: 6px;
+      background: rgba(79,142,247,0.12); color: var(--accent);
+      border: 1px solid rgba(79,142,247,0.22);
     }
-    .pc-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
-    .pc-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.65; flex: 1; margin-bottom: 1.2rem; }
-    .pc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .pc-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem; font-weight: 700;
+      margin-bottom: 0.6rem; color: var(--text);
+    }
+    .pc-desc { color: var(--body); font-size: 0.86rem; line-height: 1.68; flex: 1; margin-bottom: 1.3rem; }
+    .pc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; }
     .pc-tag {
       font-size: 0.7rem; padding: 0.25rem 0.6rem;
       background: rgba(255,255,255,0.05); border: 1px solid var(--border);
       border-radius: 5px; color: var(--muted);
     }
+    .pc-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.82rem; font-weight: 600; color: var(--accent);
+      margin-top: auto;
+    }
+    .pc-link i { font-size: 0.75rem; transition: transform 0.2s; }
+    .project-card:hover .pc-link i { transform: translateX(4px); }
 
+    /* ── CONTACT ── */
     #contact { background: var(--bg); }
-    .contact-inner { max-width: 680px; margin: 0 auto; text-align: center; }
-    .contact-inner .section-label, .contact-inner .section-title, .contact-inner .section-desc {
-      margin-left: auto; margin-right: auto;
-    }
+    .contact-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+    .contact-inner .section-label,
+    .contact-inner .section-title,
+    .contact-inner .section-desc { margin-left: auto; margin-right: auto; }
     .contact-inner .divider { margin: 0 auto 3rem; }
-    .contact-cards { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .contact-cards { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
     .contact-card {
-      display: flex; align-items: center; gap: 0.75rem;
+      display: flex; align-items: center; gap: 0.9rem;
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1rem 1.4rem;
+      border-radius: 14px; padding: 1.2rem 1.8rem;
       text-decoration: none; color: var(--text);
-      transition: border-color 0.2s, transform 0.2s;
-      min-width: 180px;
+      transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
+      min-width: 200px;
     }
-    .contact-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .cc-icon { font-size: 1.3rem; }
-    .cc-label { font-size: 0.7rem; color: var(--muted); }
-    .cc-value { font-size: 0.9rem; font-weight: 600; }
-    .contact-form {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 2rem; text-align: left;
+    .contact-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(79,142,247,0.15);
     }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-    .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; }
-    .form-group input, .form-group textarea {
-      background: var(--bg3); border: 1px solid var(--border);
-      border-radius: 8px; padding: 0.75rem 1rem;
-      color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.9rem;
-      outline: none; transition: border-color 0.2s; resize: vertical;
+    .cc-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(79,142,247,0.16), rgba(124,92,252,0.16));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--accent); flex-shrink: 0;
     }
-    .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
-    .form-full { grid-column: 1 / -1; }
-    .form-submit { width: 100%; justify-content: center; margin-top: 0.5rem; border: none; }
+    .cc-label { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+    .cc-value { font-size: 0.9rem; font-weight: 600; color: var(--text); }
 
+    /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
       padding: 1.8rem 6vw;
@@ -260,22 +347,29 @@
     footer a { color: var(--muted); text-decoration: none; }
     footer a:hover { color: var(--accent); }
 
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner { flex-direction: column-reverse; align-items: flex-start; }
+      .hero-photo-ring { width: 220px; height: 220px; }
+    }
     @media (max-width: 768px) {
-      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-      .form-row { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
       nav { padding: 1rem 5vw; }
-      .nav-links { gap: 1.2rem; }
-      section { padding: 4rem 5vw; }
+      .nav-links { gap: 1.4rem; }
+      section { padding: 4.5rem 5vw; }
       footer { flex-direction: column; gap: 0.5rem; text-align: center; }
     }
-    @media (max-width: 480px) {
+    @media (max-width: 520px) {
       .nav-links { display: none; }
       .hero-btns { flex-direction: column; }
+      .value-cards { grid-template-columns: 1fr; }
+      .hero-photo-ring { width: 180px; height: 180px; }
     }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-logo">AV.</div>
   <ul class="nav-links">
@@ -286,23 +380,40 @@
   </ul>
 </nav>
 
+<!-- HERO -->
 <section id="hero">
   <div class="hero-glow"></div>
   <div class="hero-glow2"></div>
-  <div class="hero-content">
-    <div class="hero-tag">Supply Chain &amp; Data Analytics</div>
-    <h1>Hi, I'm <span>Ayush Verma</span><br/>Turning Operations into Insight</h1>
-    <p class="hero-sub">
-      Graduate bridging supply chain management and data analytics — with hands-on
-      experience across aviation logistics, warehouse operations, and retail.
-    </p>
-    <div class="hero-btns">
-      <a href="#projects" class="btn btn-primary">View My Work</a>
-      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag">Supply Chain &amp; Data Analyst</div>
+      <h1>Hi, I'm <span>Ayush Verma.</span><br/>I turn Ideas, Data and Operations into Insights</h1>
+      <p class="hero-sub">
+        Calgary-based graduate bridging supply chain management and data analytics —
+        with hands-on experience across aviation, warehouse operations, and retail.
+      </p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary"><i class="fa-solid fa-folder-open"></i> View My Work</a>
+        <a href="#contact" class="btn btn-ghost"><i class="fa-solid fa-paper-plane"></i> Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-ring">
+        <div class="hero-photo-inner">
+          <!-- Save your background-removed photo as assets/photo.png -->
+          <img src="assets/photo.png" alt="Ayush Verma"
+               onerror="this.style.display='none'; this.parentElement.querySelector('.hero-photo-placeholder').style.display='flex';" />
+          <div class="hero-photo-placeholder" style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">
+            <i class="fa-solid fa-user"></i>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- ABOUT -->
 <section id="about">
   <div class="about-grid">
     <div class="about-text">
@@ -310,189 +421,335 @@
       <h2 class="section-title">Operations experience meets analytical thinking</h2>
       <div class="divider"></div>
       <p>
-        I'm a <strong>Supply Chain &amp; Data Analytics graduate</strong> with over three years of
-        experience across aviation ground operations, warehouse management, and retail —
-        giving me a ground-level understanding of how global supply chains actually move.
+        I'm a <strong>Supply Chain &amp; Data Analytics graduate from SAIT
+        (Southern Alberta Institute of Technology), Calgary</strong> — with over three years
+        of experience across aviation ground operations, warehouse management, and retail.
+        That ground-level exposure gives me a real understanding of how supply chains work,
+        not just in theory but in practice.
       </p>
       <p>
-        My goal is to connect the dots between <strong>operational realities and data-driven
-        decisions</strong> — using analytics to reduce friction, improve visibility, and build
-        smarter logistics processes.
+        My goal is to connect <strong>operational realities with data-driven decisions</strong>
+        — using analytics to reduce friction, improve visibility, and build smarter
+        logistics processes. I thrive where spreadsheets meet the shop floor.
       </p>
       <p>
-        Outside of work I enjoy exploring process optimisation case studies, tinkering
-        with dashboards, and staying current on logistics technology trends.
+        Outside of work, I enjoy <strong>spending time with family and friends</strong>,
+        exploring new places, and staying current on logistics technology and supply
+        chain innovation.
       </p>
-      <div class="stats-grid">
-        <div class="stat-card"><div class="stat-number">3+</div><div class="stat-label">Years of Industry Experience</div></div>
-        <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">Industry Roles</div></div>
-        <div class="stat-card"><div class="stat-number">3</div><div class="stat-label">Sectors Covered</div></div>
-        <div class="stat-card"><div class="stat-number">∞</div><div class="stat-label">Drive to Improve</div></div>
+
+      <div class="value-cards">
+        <div class="value-card">
+          <div class="vc-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="vc-title">SAIT Graduate</div>
+          <div class="vc-desc">Supply Chain &amp; Data Analytics — Southern Alberta Institute of Technology, Calgary.</div>
+        </div>
+        <div class="value-card">
+          <div class="vc-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="vc-title">Data-Driven Analyst</div>
+          <div class="vc-desc">From Power BI to Python — I turn raw data into decisions that move the needle.</div>
+        </div>
+        <div class="value-card">
+          <div class="vc-icon"><i class="fa-solid fa-industry"></i></div>
+          <div class="vc-title">Multi-Sector Operations</div>
+          <div class="vc-desc">Aviation, retail, and warehouse — 3+ years of real supply chain experience across industries.</div>
+        </div>
+        <div class="value-card">
+          <div class="vc-icon"><i class="fa-solid fa-people-arrows"></i></div>
+          <div class="vc-title">Promoted Leader</div>
+          <div class="vc-desc">Progressed from associate to supervisor roles in multiple organisations. I lead by example.</div>
+        </div>
       </div>
     </div>
-    <div>
+
+    <div class="timeline-wrap">
       <div class="section-label" style="margin-bottom:1.5rem;">Work History</div>
       <div class="timeline">
+
         <div class="tl-item">
           <div class="tl-dot"><div class="tl-dot-inner"></div></div>
           <div class="tl-content">
-            <div class="tl-role">Warehouse Associate → Cashier Key Holder / Supervisor</div>
+            <div class="tl-role">Key Holder / Supervisor</div>
             <div class="tl-company">RONA</div>
-            <div class="tl-date">Apr 2025 – Present</div>
-            <div class="tl-desc">Inventory management, warehouse operations, team supervision, and customer service. Promoted to Key Holder/Supervisor role.</div>
+            <div class="tl-meta">
+              <span class="tl-date">Apr 2026 – Present</span>
+              <span class="tl-loc">Calgary, AB</span>
+            </div>
+            <div class="tl-desc">Supervising store operations, leading team shifts, managing inventory integrity, and ensuring exceptional customer experience as a key holder.</div>
           </div>
         </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dim"><div class="tl-dot-inner"></div></div>
+          <div class="tl-content">
+            <div class="tl-role">Cashier</div>
+            <div class="tl-company">RONA</div>
+            <div class="tl-meta">
+              <span class="tl-date">Jan 2026 – Mar 2026</span>
+              <span class="tl-loc">Calgary, AB</span>
+            </div>
+            <div class="tl-desc">Front-end customer transactions, returns processing, and cash management in a high-volume retail environment.</div>
+          </div>
+        </div>
+
         <div class="tl-item">
           <div class="tl-dot"><div class="tl-dot-inner"></div></div>
           <div class="tl-content">
-            <div class="tl-role">Seasonal Ground Staff</div>
+            <div class="tl-role">Customer Experience Ambassador</div>
             <div class="tl-company">Flair Airlines</div>
-            <div class="tl-date">Dec 2025 – Jan 2026 &amp; Dec 2024 – Jan 2025</div>
-            <div class="tl-desc">Airport operations support across two peak travel seasons, handling passenger and ground logistics under tight time constraints.</div>
+            <div class="tl-meta">
+              <span class="tl-date">Dec 2025 – Jan 2026</span>
+              <span class="tl-loc">Calgary International Airport (YYC), AB</span>
+            </div>
+            <div class="tl-desc">Airport passenger services, check-in operations, and ground logistics support during peak holiday travel season.</div>
           </div>
         </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dim"><div class="tl-dot-inner"></div></div>
+          <div class="tl-content">
+            <div class="tl-role">Merchandiser</div>
+            <div class="tl-company">RONA</div>
+            <div class="tl-meta">
+              <span class="tl-date">Mar 2025 – Dec 2025</span>
+              <span class="tl-loc">Calgary, AB</span>
+            </div>
+            <div class="tl-desc">Warehouse receiving, inventory placement, stock replenishment, and product merchandising across store departments.</div>
+          </div>
+        </div>
+
         <div class="tl-item">
           <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+          <div class="tl-content">
+            <div class="tl-role">Customer Experience Ambassador</div>
+            <div class="tl-company">Flair Airlines</div>
+            <div class="tl-meta">
+              <span class="tl-date">Dec 2024 – Jan 2025</span>
+              <span class="tl-loc">Calgary International Airport (YYC), AB</span>
+            </div>
+            <div class="tl-desc">First seasonal contract — airport operations support covering passenger check-in, boarding, and gate management.</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot dim"><div class="tl-dot-inner"></div></div>
           <div class="tl-content">
             <div class="tl-role">Seasonal Sales Associate</div>
-            <div class="tl-company">Best Buy</div>
-            <div class="tl-date">Oct 2024 – Jan 2025</div>
-            <div class="tl-desc">Customer service and sales support during peak retail season. Assisted with product knowledge, floor operations, and inventory.</div>
+            <div class="tl-company purple">Best Buy</div>
+            <div class="tl-meta">
+              <span class="tl-date">Oct 2024 – Jan 2025</span>
+              <span class="tl-loc">Calgary, AB</span>
+            </div>
+            <div class="tl-desc">Customer service and technology sales during peak retail season. Product demonstrations, floor operations, and inventory support.</div>
           </div>
         </div>
+
         <div class="tl-item">
           <div class="tl-dot"><div class="tl-dot-inner"></div></div>
           <div class="tl-content">
-            <div class="tl-role">Aviation Ground Operations</div>
-            <div class="tl-company">Air India SATS</div>
-            <div class="tl-date">Mar 2022 – Apr 2024</div>
-            <div class="tl-desc">Supervised cargo and passenger logistics operations. Coordinated ground handling, ensuring compliance with safety and time-sensitive delivery standards.</div>
+            <div class="tl-role">Aviation Customer Service Supervisor</div>
+            <div class="tl-company purple">Air India SATS</div>
+            <div class="tl-meta">
+              <span class="tl-date">Mar 2022 – Apr 2024</span>
+              <span class="tl-loc">Indira Gandhi International Airport (DEL), New Delhi, India</span>
+            </div>
+            <div class="tl-desc">Supervised cargo and passenger logistics operations. Coordinated ground handling teams, ensured compliance with aviation safety protocols, and managed time-critical delivery standards.</div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
 </section>
 
+<!-- SKILLS -->
 <section id="skills">
   <div class="section-label">Capabilities</div>
   <h2 class="section-title">Skills &amp; Expertise</h2>
   <div class="divider"></div>
-  <p class="section-desc">A blend of technical analytics tools and real-world operational knowledge.</p>
+  <p class="section-desc">Hover over any skill to see it light up. A blend of technical tools and real-world operational knowledge.</p>
+
   <div class="skills-groups">
+
     <div class="skill-group">
-      <div class="sg-icon">📊</div>
+      <div class="sg-icon"><i class="fa-solid fa-chart-column"></i></div>
       <div class="sg-title">Data Analytics</div>
       <div class="skill-tags">
-        <span class="skill-tag">Excel / Power Query</span>
+        <span class="skill-tag">Excel</span>
+        <span class="skill-tag">Power Query</span>
         <span class="skill-tag">Power BI</span>
         <span class="skill-tag">Tableau</span>
         <span class="skill-tag">SQL</span>
-        <span class="skill-tag">Python (Pandas)</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Pandas</span>
         <span class="skill-tag">Data Visualisation</span>
       </div>
     </div>
+
     <div class="skill-group">
-      <div class="sg-icon">🔗</div>
+      <div class="sg-icon"><i class="fa-solid fa-boxes-stacking"></i></div>
       <div class="sg-title">Supply Chain Management</div>
       <div class="skill-tags">
         <span class="skill-tag">Inventory Management</span>
         <span class="skill-tag">Demand Planning</span>
         <span class="skill-tag">Logistics Coordination</span>
         <span class="skill-tag">Warehouse Operations</span>
-        <span class="skill-tag">Procurement Basics</span>
+        <span class="skill-tag">Procurement</span>
         <span class="skill-tag">ERP Concepts</span>
+        <span class="skill-tag">Vendor Management</span>
       </div>
     </div>
+
     <div class="skill-group">
-      <div class="sg-icon">✈️</div>
-      <div class="sg-title">Aviation &amp; Ground Ops</div>
+      <div class="sg-icon"><i class="fa-solid fa-plane-departure"></i></div>
+      <div class="sg-title">Aviation &amp; Ground Operations</div>
       <div class="skill-tags">
         <span class="skill-tag">Cargo Handling</span>
-        <span class="skill-tag">Passenger Logistics</span>
+        <span class="skill-tag">Passenger Services</span>
         <span class="skill-tag">Airside Safety</span>
         <span class="skill-tag">Ground Handling</span>
+        <span class="skill-tag">Check-in &amp; Boarding</span>
         <span class="skill-tag">Time-Critical Ops</span>
       </div>
     </div>
+
     <div class="skill-group">
-      <div class="sg-icon">🤝</div>
+      <div class="sg-icon"><i class="fa-solid fa-users-gear"></i></div>
       <div class="sg-title">Operations &amp; Leadership</div>
       <div class="skill-tags">
         <span class="skill-tag">Team Supervision</span>
         <span class="skill-tag">Process Optimisation</span>
-        <span class="skill-tag">Customer Service</span>
         <span class="skill-tag">Shift Management</span>
+        <span class="skill-tag">Customer Experience</span>
         <span class="skill-tag">Cross-functional Coordination</span>
+        <span class="skill-tag">Retail Operations</span>
       </div>
     </div>
+
   </div>
 </section>
 
+<!-- PROJECTS -->
 <section id="projects">
   <div class="section-label">Portfolio</div>
   <h2 class="section-title">Featured Projects</h2>
   <div class="divider"></div>
-  <p class="section-desc">Analytics and operations projects that combine domain knowledge with data tools.</p>
+  <p class="section-desc">Click any project to explore it in detail — including live previews and source code.</p>
+
   <div class="projects-grid">
-    <div class="project-card">
-      <div class="pc-top"><div class="pc-icon">📦</div><span class="pc-badge">Supply Chain</span></div>
-      <div class="pc-title">Warehouse Inventory Dashboard</div>
-      <div class="pc-desc">Built an interactive Power BI dashboard to track stock levels, reorder points, and inventory turnover. Modelled real warehouse workflows from direct experience at RONA to make the data actionable.</div>
-      <div class="pc-tags"><span class="pc-tag">Power BI</span><span class="pc-tag">Excel</span><span class="pc-tag">Inventory KPIs</span></div>
-    </div>
-    <div class="project-card">
-      <div class="pc-top"><div class="pc-icon">✈️</div><span class="pc-badge">Aviation Ops</span></div>
+
+    <a href="projects/logistics-dashboard.html" class="project-card">
+      <div class="pc-top">
+        <div class="pc-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <span class="pc-badge">Power BI</span>
+      </div>
+      <div class="pc-title">Logistics BI Dashboard</div>
+      <div class="pc-desc">
+        Interactive Power BI dashboard monitoring transportation KPIs across fleet, drivers,
+        routes, fuel, and revenue — built on 9 interconnected data tables.
+      </div>
+      <div class="pc-tags">
+        <span class="pc-tag">Power BI</span>
+        <span class="pc-tag">Power Query</span>
+        <span class="pc-tag">DAX</span>
+        <span class="pc-tag">Logistics</span>
+      </div>
+      <div class="pc-link">View Project <i class="fa-solid fa-arrow-right"></i></div>
+    </a>
+
+    <a href="projects/basket-analysis.html" class="project-card">
+      <div class="pc-top">
+        <div class="pc-icon"><i class="fa-solid fa-basket-shopping"></i></div>
+        <span class="pc-badge">Python · Live App</span>
+      </div>
+      <div class="pc-title">Market Basket Analysis</div>
+      <div class="pc-desc">
+        Streamlit app that mines purchasing patterns using the Apriori algorithm —
+        uploading a CSV reveals association rules with support, confidence, and lift.
+      </div>
+      <div class="pc-tags">
+        <span class="pc-tag">Python</span>
+        <span class="pc-tag">Streamlit</span>
+        <span class="pc-tag">Apriori</span>
+        <span class="pc-tag">Plotly</span>
+      </div>
+      <div class="pc-link">View Project <i class="fa-solid fa-arrow-right"></i></div>
+    </a>
+
+    <a href="projects/abc-analysis.html" class="project-card">
+      <div class="pc-top">
+        <div class="pc-icon"><i class="fa-solid fa-layer-group"></i></div>
+        <span class="pc-badge">Python · Live App</span>
+      </div>
+      <div class="pc-title">ABC Inventory Analysis</div>
+      <div class="pc-desc">
+        Automated inventory classification tool — upload SKU data and instantly get
+        A/B/C tier segmentation with interactive charts and downloadable Excel reports.
+      </div>
+      <div class="pc-tags">
+        <span class="pc-tag">Python</span>
+        <span class="pc-tag">Streamlit</span>
+        <span class="pc-tag">Excel</span>
+        <span class="pc-tag">Inventory</span>
+      </div>
+      <div class="pc-link">View Project <i class="fa-solid fa-arrow-right"></i></div>
+    </a>
+
+    <a href="projects/turnaround-analysis.html" class="project-card">
+      <div class="pc-top">
+        <div class="pc-icon"><i class="fa-solid fa-plane-circle-check"></i></div>
+        <span class="pc-badge">Aviation Ops</span>
+      </div>
       <div class="pc-title">Flight Turnaround Time Analysis</div>
-      <div class="pc-desc">Analysed simulated ground handling data to identify bottlenecks in aircraft turnaround sequences. Used Python and Pandas to surface delay patterns and propose process improvements.</div>
-      <div class="pc-tags"><span class="pc-tag">Python</span><span class="pc-tag">Pandas</span><span class="pc-tag">Matplotlib</span><span class="pc-tag">Aviation Ops</span></div>
-    </div>
-    <div class="project-card">
-      <div class="pc-top"><div class="pc-icon">🛒</div><span class="pc-badge">Retail Analytics</span></div>
-      <div class="pc-title">Retail Demand Forecasting</div>
-      <div class="pc-desc">Developed a demand forecasting model for seasonal retail products using historical sales data. Applied moving averages and trend decomposition to improve stocking decisions and reduce overstock.</div>
-      <div class="pc-tags"><span class="pc-tag">Excel</span><span class="pc-tag">SQL</span><span class="pc-tag">Forecasting</span><span class="pc-tag">Retail</span></div>
-    </div>
-    <div class="project-card">
-      <div class="pc-top"><div class="pc-icon">🗺️</div><span class="pc-badge">End-to-End</span></div>
-      <div class="pc-title">Supply Chain Mapping &amp; KPI Report</div>
-      <div class="pc-desc">Mapped an end-to-end supply chain for a case study company, identifying cost and lead-time optimisation opportunities. Delivered a Tableau dashboard with key performance indicators for stakeholders.</div>
-      <div class="pc-tags"><span class="pc-tag">Tableau</span><span class="pc-tag">KPI Design</span><span class="pc-tag">Process Mapping</span></div>
-    </div>
+      <div class="pc-desc">
+        Python analysis of ground handling timestamps to identify bottleneck tasks in
+        aircraft turnaround sequences — built from 2+ years of direct aviation experience.
+      </div>
+      <div class="pc-tags">
+        <span class="pc-tag">Python</span>
+        <span class="pc-tag">Pandas</span>
+        <span class="pc-tag">Matplotlib</span>
+        <span class="pc-tag">Seaborn</span>
+      </div>
+      <div class="pc-link">View Project <i class="fa-solid fa-arrow-right"></i></div>
+    </a>
+
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
   <div class="contact-inner">
     <div class="section-label">Contact</div>
     <h2 class="section-title">Let's Connect</h2>
     <div class="divider"></div>
-    <p class="section-desc">Open to supply chain, logistics, and data analytics opportunities. Feel free to reach out — I'd love to chat.</p>
+    <p class="section-desc">
+      Open to supply chain, logistics, and data analytics opportunities in Calgary and beyond.
+      Feel free to reach out — I'd love to chat.
+    </p>
     <div class="contact-cards">
       <a href="mailto:ayushvermahk@gmail.com" class="contact-card">
-        <span class="cc-icon">✉️</span>
-        <div><div class="cc-label">Email</div><div class="cc-value">ayushvermahk@gmail.com</div></div>
+        <div class="cc-icon"><i class="fa-solid fa-envelope"></i></div>
+        <div>
+          <div class="cc-label">Email</div>
+          <div class="cc-value">ayushvermahk@gmail.com</div>
+        </div>
       </a>
-      <a href="https://linkedin.com/in/ayushverma" target="_blank" rel="noopener" class="contact-card">
-        <span class="cc-icon">💼</span>
-        <div><div class="cc-label">LinkedIn</div><div class="cc-value">Connect with me</div></div>
+      <a href="https://www.linkedin.com/in/verma-ayush1/" target="_blank" rel="noopener" class="contact-card">
+        <div class="cc-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+        <div>
+          <div class="cc-label">LinkedIn</div>
+          <div class="cc-value">verma-ayush1</div>
+        </div>
       </a>
     </div>
-    <form class="contact-form" onsubmit="handleSubmit(event)">
-      <div class="form-row">
-        <div class="form-group"><label for="name">NAME</label><input type="text" id="name" placeholder="Your name" required /></div>
-        <div class="form-group"><label for="email">EMAIL</label><input type="email" id="email" placeholder="your@email.com" required /></div>
-        <div class="form-group form-full"><label for="subject">SUBJECT</label><input type="text" id="subject" placeholder="What's this about?" /></div>
-        <div class="form-group form-full"><label for="message">MESSAGE</label><textarea id="message" rows="5" placeholder="Your message..." required></textarea></div>
-      </div>
-      <button type="submit" class="btn btn-primary form-submit">Send Message</button>
-    </form>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <span>© 2026 Ayush Verma. All rights reserved.</span>
-  <span>Built with intention.</span>
+  <a href="#hero">Back to top ↑</a>
 </footer>
 
 <script>
@@ -503,28 +760,14 @@
         e.target.style.transform = 'translateY(0)';
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08 });
 
-  document.querySelectorAll('.skill-group, .project-card, .tl-item, .stat-card, .contact-card').forEach(el => {
+  document.querySelectorAll('.skill-group, .project-card, .tl-item, .value-card, .contact-card').forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
+    el.style.transform = 'translateY(22px)';
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(el);
   });
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button[type="submit"]');
-    btn.textContent = 'Message Sent ✓';
-    btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = 'Send Message';
-      btn.style.background = '';
-      btn.disabled = false;
-      e.target.reset();
-    }, 3000);
-  }
 </script>
 
 </body>

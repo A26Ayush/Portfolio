@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ABC Inventory Analysis — Ayush Verma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#0a0d14; --bg2:#0f1320; --bg3:#141826;
+      --border:rgba(255,255,255,0.09); --accent:#4f8ef7; --accent2:#7c5cfc;
+      --text:#ffffff; --body:#c8d0e0; --muted:#8a95ad; --card:#111520;
+      --green:#22c55e; --yellow:#eab308; --red:#ef4444;
+    }
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg); color:var(--body); font-family:'Inter',sans-serif; line-height:1.7; }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1.1rem 6vw; background:rgba(10,13,20,0.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-logo { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.2rem; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; }
+    .nav-back { display:flex; align-items:center; gap:0.5rem; color:var(--muted); text-decoration:none; font-size:0.88rem; font-weight:500; transition:color 0.2s; }
+    .nav-back:hover { color:var(--text); }
+    .hero { padding:9rem 6vw 5rem; position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
+    .hero-glow { position:absolute; top:-20%; right:-5%; width:50vw; height:50vw; max-width:600px; background:radial-gradient(circle,rgba(79,142,247,0.12) 0%,transparent 65%); pointer-events:none; }
+    .hero-inner { max-width:760px; position:relative; z-index:1; }
+    .badge { display:inline-flex; align-items:center; gap:0.5rem; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); background:rgba(79,142,247,0.1); border:1px solid rgba(79,142,247,0.28); padding:0.35rem 0.95rem; border-radius:100px; margin-bottom:1.5rem; }
+    .live-dot { width:7px; height:7px; background:#22c55e; border-radius:50%; animation:pulse 1.8s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+    h1 { font-family:'Space Grotesk',sans-serif; font-size:clamp(2rem,4.5vw,3.2rem); font-weight:700; line-height:1.15; color:var(--text); margin-bottom:1.2rem; }
+    .lead { font-size:1.05rem; color:var(--body); max-width:620px; margin-bottom:2rem; }
+    .tags { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:2rem; }
+    .tag { font-size:0.78rem; font-weight:600; padding:0.35rem 0.8rem; background:rgba(79,142,247,0.1); border:1px solid rgba(79,142,247,0.25); border-radius:6px; color:var(--accent); }
+    .actions { display:flex; gap:1rem; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:0.5rem; padding:0.75rem 1.6rem; border-radius:8px; font-size:0.9rem; font-weight:600; text-decoration:none; transition:all 0.22s; cursor:pointer; border:none; }
+    .btn-primary { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; }
+    .btn-primary:hover { opacity:0.85; transform:translateY(-2px); box-shadow:0 8px 24px rgba(79,142,247,0.3); }
+    .btn-ghost { background:transparent; color:var(--text); border:1px solid var(--border); }
+    .btn-ghost:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
+    .sec { padding:5rem 6vw; }
+    .sec+.sec { border-top:1px solid var(--border); }
+    .alt { background:var(--bg2); }
+    h2 { font-family:'Space Grotesk',sans-serif; font-size:clamp(1.4rem,3vw,1.9rem); font-weight:700; color:var(--text); margin-bottom:1.1rem; }
+    h3 { font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:0.4rem; }
+    p { color:var(--body); margin-bottom:1rem; }
+    ul { color:var(--body); padding-left:1.4rem; margin-bottom:1rem; }
+    li { margin-bottom:0.4rem; }
+    .meta-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .meta-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.1rem; }
+    .meta-label { font-size:0.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem; }
+    .meta-value { font-size:0.92rem; font-weight:600; color:var(--text); }
+    /* ABC tier cards */
+    .tier-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; margin-top:1.5rem; }
+    .tier-card { border-radius:14px; padding:1.5rem; border:1px solid; }
+    .tier-a { background:rgba(34,197,94,0.07); border-color:rgba(34,197,94,0.3); }
+    .tier-b { background:rgba(234,179,8,0.07); border-color:rgba(234,179,8,0.3); }
+    .tier-c { background:rgba(239,68,68,0.07); border-color:rgba(239,68,68,0.3); }
+    .tier-label { font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:900; margin-bottom:0.4rem; }
+    .tier-a .tier-label { color:var(--green); }
+    .tier-b .tier-label { color:var(--yellow); }
+    .tier-c .tier-label { color:var(--red); }
+    .tier-name { font-size:0.88rem; font-weight:700; color:var(--text); margin-bottom:0.4rem; }
+    .tier-pct { font-size:0.75rem; color:var(--muted); margin-bottom:0.6rem; }
+    .tier-desc { font-size:0.78rem; color:var(--body); line-height:1.5; }
+    /* steps */
+    .steps { counter-reset:step; display:flex; flex-direction:column; gap:1.2rem; margin-top:1.5rem; }
+    .step { display:flex; gap:1.2rem; }
+    .step-n { counter-increment:step; width:32px; height:32px; min-width:32px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; color:#fff; }
+    .step-n::before { content:counter(step); }
+    /* run locally */
+    .run-box { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.8rem; margin-top:1.5rem; }
+    .run-box code { background:var(--bg3); color:var(--accent); padding:0.2rem 0.5rem; border-radius:4px; font-size:0.85rem; font-family:monospace; }
+    .run-steps { display:flex; flex-direction:column; gap:0.8rem; margin-top:1rem; }
+    .run-step { display:flex; align-items:flex-start; gap:1rem; }
+    .run-num { width:24px; height:24px; min-width:24px; border-radius:50%; background:rgba(79,142,247,0.15); border:1px solid rgba(79,142,247,0.3); display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:var(--accent); }
+    footer { border-top:1px solid var(--border); padding:1.8rem 6vw; display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:0.82rem; }
+    footer a { color:var(--muted); text-decoration:none; }
+    footer a:hover { color:var(--accent); }
+    @media(max-width:640px){ .tier-grid{grid-template-columns:1fr;} .actions{flex-direction:column;} }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">AV.</a>
+  <a href="../index.html#projects" class="nav-back"><i class="fa-solid fa-arrow-left"></i> Back to Portfolio</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="badge"><span class="live-dot"></span> Python · Streamlit App</div>
+    <h1>ABC Inventory Analysis Tool</h1>
+    <p class="lead">
+      An automated inventory classification app that segments every SKU into A, B, or C
+      tiers based on annual value contribution — helping operations teams focus attention
+      where it matters most and optimise ordering strategies accordingly.
+    </p>
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">Streamlit</span>
+      <span class="tag">Excel / Power Query</span>
+      <span class="tag">Inventory Management</span>
+      <span class="tag">Supply Chain</span>
+    </div>
+    <div class="actions">
+      <a href="https://github.com/A26Ayush/ABC-Analysis" target="_blank" class="btn btn-primary"><i class="fa-brands fa-github"></i> View on GitHub</a>
+      <a href="#run-locally" class="btn btn-ghost"><i class="fa-solid fa-play"></i> Run Locally</a>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>Project Overview</h2>
+  <p>
+    ABC Analysis is one of the most practical inventory management frameworks — but doing it
+    manually in spreadsheets is time-consuming and error-prone. This app automates the full
+    pipeline: upload your inventory data, and within seconds every SKU is classified, charted,
+    and ready for export.
+  </p>
+  <p>
+    Built using real supply chain knowledge from warehouse operations at RONA, where ABC
+    prioritisation directly informed how stock was managed and reordered.
+  </p>
+  <div class="meta-grid">
+    <div class="meta-card"><div class="meta-label">Type</div><div class="meta-value">Web App (Streamlit)</div></div>
+    <div class="meta-card"><div class="meta-label">Language</div><div class="meta-value">Python</div></div>
+    <div class="meta-card"><div class="meta-label">Data Source</div><div class="meta-value">Kaggle Sales Dataset</div></div>
+    <div class="meta-card"><div class="meta-label">Output</div><div class="meta-value">Charts + Excel Report</div></div>
+  </div>
+</div>
+
+<div class="sec alt">
+  <h2>The ABC Framework</h2>
+  <p>Products are ranked by annual value (quantity × unit cost) and split into three tiers using cumulative percentage thresholds.</p>
+  <div class="tier-grid">
+    <div class="tier-card tier-a">
+      <div class="tier-label">A</div>
+      <div class="tier-name">High Value</div>
+      <div class="tier-pct">Top ~70% of total value · ~10–20% of SKUs</div>
+      <div class="tier-desc">Tight control, frequent cycle counts, safety stock maintained. These drive the majority of revenue — stockouts are costly.</div>
+    </div>
+    <div class="tier-card tier-b">
+      <div class="tier-label">B</div>
+      <div class="tier-name">Medium Value</div>
+      <div class="tier-pct">Next ~20% of value · ~30% of SKUs</div>
+      <div class="tier-desc">Moderate oversight. Reviewed periodically. May be promoted to A or demoted to C based on trend.</div>
+    </div>
+    <div class="tier-card tier-c">
+      <div class="tier-label">C</div>
+      <div class="tier-name">Low Value</div>
+      <div class="tier-pct">Remaining ~10% of value · ~50% of SKUs</div>
+      <div class="tier-desc">Minimal management effort. High order quantities, infrequent reviews. Candidates for rationalisation.</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>How It Works</h2>
+  <div class="steps">
+    <div class="step"><div class="step-n"></div><div><h3>Upload Data</h3><p>User uploads a CSV/Excel file containing SKU identifiers, quantities sold, and unit costs. Data is cleaned via Power Query–style transforms.</p></div></div>
+    <div class="step"><div class="step-n"></div><div><h3>Annual Value Calculation</h3><p>For each SKU: Annual Value = Quantity × Unit Cost. Products are sorted descending by this value.</p></div></div>
+    <div class="step"><div class="step-n"></div><div><h3>Cumulative % & Classification</h3><p>Running cumulative percentage is calculated. Items crossing the 70% threshold → A, 90% → B, remainder → C.</p></div></div>
+    <div class="step"><div class="step-n"></div><div><h3>Interactive Charts</h3><p>Pareto chart, pie chart by tier, and SKU-count vs value-contribution breakdown are generated instantly.</p></div></div>
+    <div class="step"><div class="step-n"></div><div><h3>Export to Excel</h3><p>The full classified inventory table is available as a downloadable Excel report — ready to hand to a buyer or operations manager.</p></div></div>
+  </div>
+</div>
+
+<div id="run-locally" class="sec alt">
+  <h2>Run the App Locally</h2>
+  <div class="run-box">
+    <div class="run-steps">
+      <div class="run-step"><div class="run-num">1</div><div>Clone the repo<br/><code>git clone https://github.com/A26Ayush/ABC-Analysis.git && cd ABC-Analysis</code></div></div>
+      <div class="run-step"><div class="run-num">2</div><div>Install dependencies<br/><code>pip install streamlit pandas openpyxl plotly</code></div></div>
+      <div class="run-step"><div class="run-num">3</div><div>Launch the app<br/><code>streamlit run app.py</code></div></div>
+      <div class="run-step"><div class="run-num">4</div><div>Upload a CSV with columns for SKU, quantity, and unit cost — the app handles the rest.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>Business Impact</h2>
+  <ul>
+    <li><strong>Focus resources on A items</strong> — prevent stockouts on the SKUs that generate most value</li>
+    <li><strong>Reduce carrying costs on C items</strong> — bulk order, less frequent review, or rationalise entirely</li>
+    <li><strong>Faster cycle counts</strong> — only A items need weekly physical counts; B monthly, C quarterly</li>
+    <li><strong>Data-backed purchasing</strong> — buyers get an objective classification rather than gut feel</li>
+    <li><strong>Exportable reports</strong> — immediate handoff to procurement or ops teams via Excel download</li>
+  </ul>
+</div>
+
+<footer>
+  <span>© 2026 Ayush Verma</span>
+  <a href="../index.html#projects">← Back to all projects</a>
+</footer>
+</body>
+</html>
