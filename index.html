@@ -60,20 +60,42 @@
     #hero {
       min-height: 100vh;
       display: flex; align-items: center;
-      padding: 7rem 6vw 4rem;
+      padding: 8rem 6vw 5rem;
       position: relative; overflow: hidden;
+      will-change: opacity;
+    }
+    /* subtle grid overlay for depth */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(79,142,247,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79,142,247,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none; z-index: 0;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
     }
     .hero-glow {
       position: absolute; top: -15%; right: -5%;
-      width: 60vw; height: 60vw; max-width: 750px; max-height: 750px;
-      background: radial-gradient(circle, rgba(79,142,247,0.13) 0%, transparent 65%);
+      width: 65vw; height: 65vw; max-width: 800px; max-height: 800px;
+      background: radial-gradient(circle, rgba(79,142,247,0.16) 0%, transparent 65%);
       pointer-events: none;
     }
     .hero-glow2 {
       position: absolute; bottom: -5%; left: -10%;
-      width: 45vw; height: 45vw; max-width: 550px;
-      background: radial-gradient(circle, rgba(124,92,252,0.1) 0%, transparent 65%);
+      width: 50vw; height: 50vw; max-width: 600px;
+      background: radial-gradient(circle, rgba(124,92,252,0.13) 0%, transparent 65%);
       pointer-events: none;
+    }
+    /* floating accent ring behind photo */
+    .hero-glow3 {
+      position: absolute; top: 50%; right: 6vw;
+      transform: translateY(-50%);
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79,142,247,0.07) 0%, transparent 70%);
+      border: 1px solid rgba(79,142,247,0.08);
+      pointer-events: none; z-index: 0;
     }
     .hero-inner {
       display: flex; align-items: center; justify-content: space-between;
@@ -85,23 +107,28 @@
       font-size: 0.78rem; font-weight: 600; letter-spacing: 0.13em;
       text-transform: uppercase; color: var(--accent);
       background: rgba(79,142,247,0.1); border: 1px solid rgba(79,142,247,0.28);
-      padding: 0.35rem 0.95rem; border-radius: 100px; margin-bottom: 1.5rem;
+      padding: 0.35rem 0.95rem; border-radius: 100px; margin-bottom: 2rem;
     }
     .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 700; line-height: 1.1; color: var(--text);
-      margin-bottom: 1.2rem;
+      font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+      font-weight: 700; line-height: 1.08; color: var(--text);
+      margin-bottom: 1.5rem; letter-spacing: -0.02em;
     }
     h1 span {
       background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .hero-sub {
-      font-size: 1.1rem; color: var(--body); max-width: 520px;
-      margin-bottom: 2.5rem; line-height: 1.75;
+      font-size: 1.15rem; color: var(--body); max-width: 520px;
+      margin-bottom: 1.5rem; line-height: 1.8;
     }
+    .hero-location {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-size: 0.82rem; color: var(--muted); margin-bottom: 2.5rem;
+    }
+    .hero-location i { color: var(--accent); font-size: 0.75rem; }
     .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
     .btn {
       display: inline-flex; align-items: center; gap: 0.5rem;
@@ -125,15 +152,21 @@
       flex-shrink: 0; position: relative;
     }
     .hero-photo-ring {
-      width: 300px; height: 300px; border-radius: 50%;
+      width: 340px; height: 340px; border-radius: 50%;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       padding: 3px; position: relative;
     }
     .hero-photo-ring::before {
       content: '';
-      position: absolute; inset: -8px; border-radius: 50%;
-      background: linear-gradient(135deg, rgba(79,142,247,0.25), rgba(124,92,252,0.25));
-      filter: blur(12px); z-index: -1;
+      position: absolute; inset: -12px; border-radius: 50%;
+      background: linear-gradient(135deg, rgba(79,142,247,0.3), rgba(124,92,252,0.3));
+      filter: blur(18px); z-index: -1;
+    }
+    .hero-photo-ring::after {
+      content: '';
+      position: absolute; inset: -22px; border-radius: 50%;
+      border: 1px solid rgba(79,142,247,0.12);
+      pointer-events: none;
     }
     .hero-photo-inner {
       width: 100%; height: 100%; border-radius: 50%;
@@ -350,7 +383,8 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .hero-inner { flex-direction: column-reverse; align-items: flex-start; }
-      .hero-photo-ring { width: 220px; height: 220px; }
+      .hero-photo-ring { width: 240px; height: 240px; }
+      .hero-glow3 { display: none; }
     }
     @media (max-width: 768px) {
       .about-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -363,7 +397,7 @@
       .nav-links { display: none; }
       .hero-btns { flex-direction: column; }
       .value-cards { grid-template-columns: 1fr; }
-      .hero-photo-ring { width: 180px; height: 180px; }
+      .hero-photo-ring { width: 190px; height: 190px; }
     }
   </style>
 </head>
@@ -384,14 +418,18 @@
 <section id="hero">
   <div class="hero-glow"></div>
   <div class="hero-glow2"></div>
+  <div class="hero-glow3"></div>
   <div class="hero-inner">
     <div class="hero-content">
       <div class="hero-tag">Supply Chain &amp; Data Analyst</div>
-      <h1>Hi, I'm <span>Ayush Verma.</span><br/>I turn Ideas, Data and Operations into Insights</h1>
+      <h1>Hi, I'm <span>Ayush Verma.</span><br/>I turn Ideas, Data and<br/>Operations into Insights</h1>
       <p class="hero-sub">
         Calgary-based graduate bridging supply chain management and data analytics —
         with hands-on experience across aviation, warehouse operations, and retail.
       </p>
+      <div class="hero-location">
+        <i class="fa-solid fa-location-dot"></i> Calgary, Alberta, Canada
+      </div>
       <div class="hero-btns">
         <a href="#projects" class="btn btn-primary"><i class="fa-solid fa-folder-open"></i> View My Work</a>
         <a href="#contact" class="btn btn-ghost"><i class="fa-solid fa-paper-plane"></i> Get in Touch</a>
@@ -401,7 +439,6 @@
     <div class="hero-photo-wrap">
       <div class="hero-photo-ring">
         <div class="hero-photo-inner">
-          <!-- Save your background-removed photo as assets/photo.png -->
           <img src="assets/photo.png" alt="Ayush Verma"
                onerror="this.style.display='none'; this.parentElement.querySelector('.hero-photo-placeholder').style.display='flex';" />
           <div class="hero-photo-placeholder" style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">
@@ -753,7 +790,27 @@
 </footer>
 
 <script>
-  const observer = new IntersectionObserver(entries => {
+  /* ── Scroll-based hero fade ── */
+  const hero = document.getElementById('hero');
+  let ticking = false;
+  function updateHeroOpacity() {
+    const heroH = hero.offsetHeight;
+    const scrollY = window.scrollY;
+    /* start fading at 20% through hero, fully gone at 90% of hero height */
+    const start = heroH * 0.2;
+    const end   = heroH * 0.9;
+    const opacity = scrollY <= start ? 1
+                  : scrollY >= end   ? 0
+                  : 1 - (scrollY - start) / (end - start);
+    hero.style.opacity = opacity;
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(updateHeroOpacity); ticking = true; }
+  }, { passive: true });
+
+  /* ── Scroll-reveal for sections below hero ── */
+  const revealObserver = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.style.opacity = '1';
@@ -766,7 +823,7 @@
     el.style.opacity = '0';
     el.style.transform = 'translateY(22px)';
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    observer.observe(el);
+    revealObserver.observe(el);
   });
 </script>
 
