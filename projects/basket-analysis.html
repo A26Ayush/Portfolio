@@ -105,6 +105,7 @@
     </div>
     <div class="actions">
       <a href="https://github.com/A26Ayush/Basket-Analysis" target="_blank" class="btn btn-primary"><i class="fa-brands fa-github"></i> View on GitHub</a>
+      <a href="https://share.streamlit.io/deploy?repository=A26Ayush/Basket-Analysis&branch=main&mainModule=app.py" target="_blank" class="btn btn-ghost"><i class="fa-solid fa-rocket"></i> Deploy on Streamlit</a>
       <a href="#run-locally" class="btn btn-ghost"><i class="fa-solid fa-play"></i> Run Locally</a>
     </div>
   </div>
@@ -234,6 +235,23 @@ if uploaded_file:
     )
     st.plotly_chart(fig, use_container_width=True)
 </code></pre>
+  </div>
+</div>
+
+<div class="sec alt">
+  <h2>Run the App Online</h2>
+  <p>Deploy this app to Streamlit Community Cloud in one click — free, no server required. Anyone can then open it from a browser link.</p>
+  <div style="background:var(--bg3);border:1px solid rgba(124,92,252,0.3);border-radius:14px;padding:1.5rem 2rem;margin-top:1rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+    <div style="width:48px;height:48px;border-radius:11px;background:linear-gradient(135deg,rgba(124,92,252,0.2),rgba(79,142,247,0.2));display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--accent2);flex-shrink:0;"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+    <div style="flex:1;min-width:200px;">
+      <div style="font-weight:700;color:var(--text);margin-bottom:0.2rem;">Deploy to Streamlit Community Cloud</div>
+      <div style="font-size:0.78rem;color:var(--muted);">Free hosting for Streamlit apps &mdash; connect your GitHub repo and go live in minutes.</div>
+    </div>
+    <a href="https://share.streamlit.io/deploy?repository=A26Ayush/Basket-Analysis&branch=main&mainModule=app.py"
+       target="_blank"
+       style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 1.5rem;border-radius:8px;background:linear-gradient(135deg,var(--accent2),var(--accent));color:#fff;font-weight:600;font-size:0.88rem;text-decoration:none;transition:opacity 0.2s;flex-shrink:0;">
+      <i class="fa-solid fa-rocket"></i> Deploy Now
+    </a>
   </div>
 </div>
 
