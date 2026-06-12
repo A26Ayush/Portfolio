@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Market Basket Analysis — Ayush Verma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#0a0d14; --bg2:#0f1320; --bg3:#141826;
+      --border:rgba(255,255,255,0.09); --accent:#4f8ef7; --accent2:#7c5cfc;
+      --text:#ffffff; --body:#c8d0e0; --muted:#8a95ad; --card:#111520;
+    }
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg); color:var(--body); font-family:'Inter',sans-serif; line-height:1.7; }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1.1rem 6vw; background:rgba(10,13,20,0.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-logo { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.2rem; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; }
+    .nav-back { display:flex; align-items:center; gap:0.5rem; color:var(--muted); text-decoration:none; font-size:0.88rem; font-weight:500; transition:color 0.2s; }
+    .nav-back:hover { color:var(--text); }
+    .hero { padding:9rem 6vw 5rem; position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
+    .hero-glow { position:absolute; top:-20%; right:-5%; width:50vw; height:50vw; max-width:600px; background:radial-gradient(circle,rgba(124,92,252,0.13) 0%,transparent 65%); pointer-events:none; }
+    .hero-inner { max-width:760px; position:relative; z-index:1; }
+    .badge { display:inline-flex; align-items:center; gap:0.5rem; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent2); background:rgba(124,92,252,0.1); border:1px solid rgba(124,92,252,0.28); padding:0.35rem 0.95rem; border-radius:100px; margin-bottom:1.5rem; }
+    .live-dot { width:7px; height:7px; background:#22c55e; border-radius:50%; animation:pulse 1.8s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+    h1 { font-family:'Space Grotesk',sans-serif; font-size:clamp(2rem,4.5vw,3.2rem); font-weight:700; line-height:1.15; color:var(--text); margin-bottom:1.2rem; }
+    .lead { font-size:1.05rem; color:var(--body); max-width:620px; margin-bottom:2rem; }
+    .tags { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:2rem; }
+    .tag { font-size:0.78rem; font-weight:600; padding:0.35rem 0.8rem; background:rgba(124,92,252,0.1); border:1px solid rgba(124,92,252,0.25); border-radius:6px; color:var(--accent2); }
+    .actions { display:flex; gap:1rem; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:0.5rem; padding:0.75rem 1.6rem; border-radius:8px; font-size:0.9rem; font-weight:600; text-decoration:none; transition:all 0.22s; cursor:pointer; border:none; }
+    .btn-primary { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; }
+    .btn-primary:hover { opacity:0.85; transform:translateY(-2px); box-shadow:0 8px 24px rgba(79,142,247,0.3); }
+    .btn-ghost { background:transparent; color:var(--text); border:1px solid var(--border); }
+    .btn-ghost:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
+    .sec { padding:5rem 6vw; }
+    .sec+.sec { border-top:1px solid var(--border); }
+    .alt { background:var(--bg2); }
+    h2 { font-family:'Space Grotesk',sans-serif; font-size:clamp(1.4rem,3vw,1.9rem); font-weight:700; color:var(--text); margin-bottom:1.1rem; }
+    h3 { font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:0.4rem; }
+    p { color:var(--body); margin-bottom:1rem; }
+    ul { color:var(--body); padding-left:1.4rem; margin-bottom:1rem; }
+    li { margin-bottom:0.4rem; }
+    .meta-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .meta-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.1rem; }
+    .meta-label { font-size:0.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem; }
+    .meta-value { font-size:0.92rem; font-weight:600; color:var(--text); }
+    .metrics-row { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.5rem; }
+    .metric-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.3rem; text-align:center; transition:border-color 0.2s,transform 0.2s; }
+    .metric-card:hover { border-color:rgba(124,92,252,0.4); transform:translateY(-2px); }
+    .metric-name { font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.5rem; }
+    .metric-val { font-family:'Space Grotesk',sans-serif; font-size:1.6rem; font-weight:700; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .metric-desc { font-size:0.72rem; color:var(--muted); margin-top:0.35rem; line-height:1.4; }
+    /* how it works steps */
+    .steps { counter-reset:step; display:flex; flex-direction:column; gap:1.2rem; margin-top:1.5rem; }
+    .step { display:flex; gap:1.2rem; }
+    .step-n { counter-increment:step; width:32px; height:32px; min-width:32px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; color:#fff; }
+    .step-n::before { content:counter(step); }
+    /* code */
+    .code-wrap { border-radius:12px; overflow:hidden; margin-top:1.5rem; border:1px solid var(--border); }
+    .code-head { display:flex; align-items:center; justify-content:space-between; padding:0.75rem 1.2rem; background:var(--bg3); border-bottom:1px solid var(--border); }
+    .code-fn { font-size:0.8rem; color:var(--muted); font-family:monospace; }
+    .code-lang-badge { font-size:0.7rem; background:rgba(124,92,252,0.12); color:var(--accent2); padding:0.2rem 0.6rem; border-radius:4px; font-weight:600; }
+    pre { margin:0; font-size:0.8rem; max-height:500px; overflow-y:auto; }
+    /* run locally */
+    .run-box { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.8rem; margin-top:1.5rem; }
+    .run-box code { background:var(--bg3); color:var(--accent); padding:0.2rem 0.5rem; border-radius:4px; font-size:0.85rem; font-family:monospace; }
+    .run-steps { display:flex; flex-direction:column; gap:0.8rem; margin-top:1rem; }
+    .run-step { display:flex; align-items:flex-start; gap:1rem; }
+    .run-num { width:24px; height:24px; min-width:24px; border-radius:50%; background:rgba(79,142,247,0.15); border:1px solid rgba(79,142,247,0.3); display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; color:var(--accent); }
+    footer { border-top:1px solid var(--border); padding:1.8rem 6vw; display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:0.82rem; }
+    footer a { color:var(--muted); text-decoration:none; }
+    footer a:hover { color:var(--accent); }
+    @media(max-width:640px){ .metrics-row{grid-template-columns:1fr;} .actions{flex-direction:column;} }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">AV.</a>
+  <a href="../index.html#projects" class="nav-back"><i class="fa-solid fa-arrow-left"></i> Back to Portfolio</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="badge"><span class="live-dot"></span> Python · Streamlit App</div>
+    <h1>Market Basket Analysis</h1>
+    <p class="lead">
+      A Streamlit web app that mines purchasing patterns from transaction data using the
+      Apriori algorithm — revealing which products are frequently bought together and
+      quantifying those relationships with Support, Confidence, and Lift.
+    </p>
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">Streamlit</span>
+      <span class="tag">Apriori</span>
+      <span class="tag">mlxtend</span>
+      <span class="tag">Plotly</span>
+      <span class="tag">Pandas</span>
+    </div>
+    <div class="actions">
+      <a href="https://github.com/A26Ayush/Basket-Analysis" target="_blank" class="btn btn-primary"><i class="fa-brands fa-github"></i> View on GitHub</a>
+      <a href="#run-locally" class="btn btn-ghost"><i class="fa-solid fa-play"></i> Run Locally</a>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>Project Overview</h2>
+  <p>
+    Market basket analysis answers the question: <em>"What gets bought together?"</em> By uploading
+    a CSV of transaction records, this app automatically mines association rules and surfaces
+    product combinations that co-occur more often than chance would predict.
+  </p>
+  <p>
+    Useful for cross-selling strategy, store layout, bundling promotions, and inventory
+    planning — all from a simple drag-and-drop data upload.
+  </p>
+  <div class="meta-grid">
+    <div class="meta-card"><div class="meta-label">Type</div><div class="meta-value">Interactive Web App</div></div>
+    <div class="meta-card"><div class="meta-label">Language</div><div class="meta-value">Python (app.py)</div></div>
+    <div class="meta-card"><div class="meta-label">Framework</div><div class="meta-value">Streamlit</div></div>
+    <div class="meta-card"><div class="meta-label">Algorithm</div><div class="meta-value">Apriori (mlxtend)</div></div>
+  </div>
+</div>
+
+<div class="sec alt">
+  <h2>Three Core Metrics</h2>
+  <p>The app calculates and lets you filter by three standard association rule metrics.</p>
+  <div class="metrics-row">
+    <div class="metric-card">
+      <div class="metric-name">Support</div>
+      <div class="metric-val">P(A∩B)</div>
+      <div class="metric-desc">How often the item combination appears in all transactions</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-name">Confidence</div>
+      <div class="metric-val">P(B|A)</div>
+      <div class="metric-desc">How likely B is purchased when A is already in the basket</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-name">Lift</div>
+      <div class="metric-val">&gt; 1.0</div>
+      <div class="metric-desc">How much more likely the combo is vs. random co-occurrence</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>How It Works</h2>
+  <div class="steps">
+    <div class="step"><div class="step-n"></div><div><h3>Upload CSV</h3><p>Drop in a transaction file with an OrderID column and an Items column (comma-separated products per order).</p></div></div>
+    <div class="step"><div class="step-n"></div><div><h3>Top Products</h3><p>App immediately shows the 10 most frequently ordered individual products with a bar chart.</p></div></div>
+    <div class="step"><div class="step-n"></div><div><h3>Basket Encoding</h3><p>Transactions are exploded and one-hot encoded into a sparse transaction-item matrix for Apriori processing.</p></div></div>
+    <div class="step"><div class="step-n"></div><div><h3>Apriori + Rules</h3><p>Frequent itemsets are mined at min_support=0.01, then association rules generated with lift threshold ≥ 1.</p></div></div>
+    <div class="step"><div class="step-n"></div><div><h3>Interactive Explore</h3><p>Filter top-N rules, choose your metric (support/confidence/lift), and plot any two metrics against each other on a scatter chart sized by support.</p></div></div>
+  </div>
+</div>
+
+<div class="sec alt">
+  <h2>Source Code — app.py</h2>
+  <p>Full application code. Clone the repo and run it in two commands.</p>
+  <div class="code-wrap">
+    <div class="code-head">
+      <span class="code-fn">app.py</span>
+      <span class="code-lang-badge">Python · Streamlit</span>
+    </div>
+    <pre><code class="language-python">import streamlit as st
+import pandas as pd
+from mlxtend.frequent_patterns import apriori, association_rules
+import plotly.express as px
+
+st.set_page_config(page_title="Market Basket Analysis", layout="wide")
+st.title("Market Basket Analysis App")
+st.write("Upload your transaction CSV file to generate association rules.")
+
+uploaded_file = st.file_uploader("Upload CSV File", type=["csv"])
+
+if uploaded_file:
+    df = pd.read_csv(uploaded_file)
+    st.success("File uploaded successfully!")
+
+    st.subheader("Data Preview")
+    st.dataframe(df)
+
+    order_col = st.selectbox("Select Order ID Column", options=df.columns)
+    item_col  = st.selectbox("Select Item Column",     options=df.columns)
+
+    # Top 10 most ordered products
+    st.subheader("Top 10 Most Ordered Products")
+    exploded_df  = df.assign(Items=df["Items"].str.split(", ")).explode("Items")
+    top_products = exploded_df["Items"].value_counts().head(10)
+    st.dataframe(top_products.reset_index().rename(columns={"index":"Product","Items":"Order Count"}))
+    st.bar_chart(top_products.sort_values(ascending=True))
+
+    # One-hot encode into basket matrix
+    basket = (
+        exploded_df.assign(value=1)
+        .pivot_table(index="OrderID", columns="Items", values="value", fill_value=0)
+        .astype(bool)
+    )
+
+    # Apriori
+    frequent_itemsets = apriori(basket, min_support=0.01, use_colnames=True)
+
+    number = st.number_input("Number of top rules to show",
+                             min_value=1, max_value=1000, value=10, step=1)
+
+    rules     = association_rules(frequent_itemsets, metric="lift", min_threshold=1)
+    top_rules = rules.sort_values("support", ascending=False).head(number)
+
+    # Clean frozensets for display
+    top_rules["antecedents"] = top_rules["antecedents"].apply(lambda x: ", ".join(list(x)))
+    top_rules["consequents"] = top_rules["consequents"].apply(lambda x: ", ".join(list(x)))
+    top_rules = top_rules[["antecedents","consequents","support","confidence","lift"]]
+
+    # Metric selector
+    metric = st.selectbox("Select Metric", options=["support","lift","confidence"])
+    st.subheader(f"Top Product Combinations by {metric}")
+    st.dataframe(top_rules[["antecedents","consequents",metric]])
+
+    # Scatter plot — any two metrics
+    x_axis = st.selectbox("X-Axis Metric", options=["support","lift","confidence"])
+    y_axis = st.selectbox("Y-Axis Metric", options=["support","lift","confidence"])
+    fig = px.scatter(
+        top_rules, x=x_axis, y=y_axis, size="support",
+        hover_data=["antecedents","consequents"],
+        title=f"{x_axis.capitalize()} vs {y_axis.capitalize()}"
+    )
+    st.plotly_chart(fig, use_container_width=True)
+</code></pre>
+  </div>
+</div>
+
+<div id="run-locally" class="sec">
+  <h2>Run the App Locally</h2>
+  <p>No special setup required — just Python and pip.</p>
+  <div class="run-box">
+    <div class="run-steps">
+      <div class="run-step"><div class="run-num">1</div><div>Clone the repo<br/><code>git clone https://github.com/A26Ayush/Basket-Analysis.git && cd Basket-Analysis</code></div></div>
+      <div class="run-step"><div class="run-num">2</div><div>Install dependencies<br/><code>pip install streamlit pandas mlxtend plotly</code></div></div>
+      <div class="run-step"><div class="run-num">3</div><div>Launch the app<br/><code>streamlit run app.py</code></div></div>
+      <div class="run-step"><div class="run-num">4</div><div>Open your browser to <code>http://localhost:8501</code> and upload a CSV with <code>OrderID</code> and <code>Items</code> columns.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec alt">
+  <h2>Business Applications</h2>
+  <ul>
+    <li><strong>Cross-selling</strong> — staff or recommendation engines suggest high-lift complementary products</li>
+    <li><strong>Store layout</strong> — place frequently co-purchased items near each other to increase basket size</li>
+    <li><strong>Bundling &amp; promotions</strong> — build discount bundles around strong association rules</li>
+    <li><strong>Inventory planning</strong> — stock associated items together to reduce split-order delays</li>
+  </ul>
+</div>
+
+<footer>
+  <span>© 2026 Ayush Verma</span>
+  <a href="../index.html#projects">← Back to all projects</a>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>

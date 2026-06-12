@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flight Turnaround Analysis — Ayush Verma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0d14; --bg2: #0f1320; --bg3: #141826;
+      --border: rgba(255,255,255,0.09); --accent: #4f8ef7; --accent2: #7c5cfc;
+      --text: #ffffff; --body: #c8d0e0; --muted: #8a95ad; --card: #111520;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--body); font-family: 'Inter', sans-serif; line-height: 1.7; }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 6vw; background: rgba(10,13,20,0.88);
+      backdrop-filter: blur(14px); border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .nav-back { display: flex; align-items: center; gap: 0.5rem; color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+    .project-hero { padding: 9rem 6vw 5rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+    .project-hero-glow { position: absolute; top: -20%; right: -5%; width: 50vw; height: 50vw; max-width: 600px; max-height: 600px; background: radial-gradient(circle, rgba(124,92,252,0.12) 0%, transparent 65%); pointer-events: none; }
+    .project-hero-inner { max-width: 760px; position: relative; z-index: 1; }
+    .ph-badge { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); background: rgba(124,92,252,0.1); border: 1px solid rgba(124,92,252,0.28); padding: 0.35rem 0.95rem; border-radius: 100px; margin-bottom: 1.5rem; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 700; line-height: 1.15; color: var(--text); margin-bottom: 1.2rem; }
+    .ph-desc { font-size: 1.05rem; color: var(--body); max-width: 600px; margin-bottom: 2rem; }
+    .ph-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+    .ph-tag { font-size: 0.78rem; font-weight: 600; padding: 0.35rem 0.8rem; background: rgba(124,92,252,0.1); border: 1px solid rgba(124,92,252,0.25); border-radius: 6px; color: var(--accent2); }
+    .ph-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.6rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: all 0.22s; cursor: pointer; border: none; }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,142,247,0.3); }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .content-section { padding: 5rem 6vw; }
+    .content-section + .content-section { border-top: 1px solid var(--border); }
+    .alt-bg { background: var(--bg2); }
+    h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: var(--text); margin-bottom: 1.2rem; }
+    h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    p { color: var(--body); margin-bottom: 1rem; }
+    ul { color: var(--body); padding-left: 1.4rem; margin-bottom: 1rem; }
+    ul li { margin-bottom: 0.4rem; }
+    .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+    .ov-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; }
+    .ov-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+    .ov-value { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+    .code-block { border-radius: 12px; overflow: hidden; margin-top: 1.5rem; border: 1px solid var(--border); }
+    .code-header { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.2rem; background: var(--bg3); border-bottom: 1px solid var(--border); }
+    .code-filename { font-size: 0.8rem; color: var(--muted); font-family: monospace; }
+    .code-lang { font-size: 0.7rem; background: rgba(79,142,247,0.1); color: var(--accent); padding: 0.2rem 0.6rem; border-radius: 4px; font-weight: 600; }
+    pre { margin: 0; font-size: 0.82rem; }
+    pre code { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+    .steps { counter-reset: step; display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1.5rem; }
+    .step { display: flex; gap: 1.2rem; }
+    .step-num { counter-increment: step; width: 32px; height: 32px; min-width: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: #fff; }
+    .step-num::before { content: counter(step); }
+    .preview-box { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 1.5rem; }
+    .preview-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.2rem; background: var(--bg3); border-bottom: 1px solid var(--border); }
+    .pb-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .pb-dot.red { background: #ff5f57; } .pb-dot.yellow { background: #ffbd2e; } .pb-dot.green { background: #28c840; }
+    .pb-url { flex: 1; text-align: center; font-size: 0.78rem; color: var(--muted); background: var(--bg); border-radius: 6px; padding: 0.25rem 0.8rem; }
+    .preview-placeholder { height: 360px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; color: var(--muted); text-align: center; padding: 2rem; }
+    .preview-placeholder i { font-size: 3rem; color: var(--accent2); opacity: 0.4; }
+    .preview-placeholder strong { color: var(--text); font-size: 1.1rem; display: block; margin-bottom: 0.3rem; }
+    .preview-placeholder p { font-size: 0.85rem; max-width: 380px; margin: 0; }
+    footer { border-top: 1px solid var(--border); padding: 1.8rem 6vw; display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: 0.82rem; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+    @media (max-width: 640px) { .overview-grid { grid-template-columns: 1fr; } .ph-actions { flex-direction: column; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">AV.</a>
+  <a href="../index.html#projects" class="nav-back"><i class="fa-solid fa-arrow-left"></i> Back to Portfolio</a>
+</nav>
+
+<div class="project-hero">
+  <div class="project-hero-glow"></div>
+  <div class="project-hero-inner">
+    <div class="ph-badge"><i class="fa-solid fa-plane-circle-check"></i> Aviation Ops</div>
+    <h1>Flight Turnaround Time Analysis</h1>
+    <p class="ph-desc">
+      Python-based analysis of ground handling data to identify bottlenecks in aircraft
+      turnaround sequences — built from 2+ years of direct aviation operations experience.
+    </p>
+    <div class="ph-tags">
+      <span class="ph-tag">Python</span>
+      <span class="ph-tag">Pandas</span>
+      <span class="ph-tag">Matplotlib</span>
+      <span class="ph-tag">Seaborn</span>
+      <span class="ph-tag">Aviation Ops</span>
+    </div>
+    <div class="ph-actions">
+      <a href="GITHUB_REPO_URL_HERE" target="_blank" class="btn btn-primary"><i class="fa-brands fa-github"></i> View on GitHub</a>
+      <a href="#code-preview" class="btn btn-ghost"><i class="fa-solid fa-code"></i> See the Code</a>
+    </div>
+  </div>
+</div>
+
+<div class="content-section">
+  <h2>Project Overview</h2>
+  <p>
+    Aircraft turnaround time — the window between landing and next departure — is one of the
+    most operationally complex and cost-sensitive metrics in aviation. Even small delays
+    cascade into schedule disruptions and customer dissatisfaction. This project analyses
+    simulated ground handling data to surface where those delays originate.
+  </p>
+  <div class="overview-grid">
+    <div class="ov-card"><div class="ov-label">Type</div><div class="ov-value">Exploratory Data Analysis</div></div>
+    <div class="ov-card"><div class="ov-label">Language</div><div class="ov-value">Python (.py)</div></div>
+    <div class="ov-card"><div class="ov-label">Domain</div><div class="ov-value">Aviation Ground Operations</div></div>
+    <div class="ov-card"><div class="ov-label">Status</div><div class="ov-value">✅ Completed</div></div>
+  </div>
+</div>
+
+<div class="content-section alt-bg">
+  <h2>Problem Statement</h2>
+  <p>Ground handling involves multiple parallel workstreams that must all complete before an aircraft can depart:</p>
+  <ul>
+    <li>Passenger deboarding and boarding</li>
+    <li>Baggage offload and loading</li>
+    <li>Catering and cabin cleaning</li>
+    <li>Fuelling and technical checks</li>
+    <li>Cargo handling</li>
+  </ul>
+  <p>
+    A delay in any one of these creates a bottleneck. Using logged timestamp data, this
+    analysis identifies which steps most frequently cause the turnaround to exceed target.
+  </p>
+</div>
+
+<div id="code-preview" class="content-section">
+  <h2>Code Preview</h2>
+  <p>Core analysis script — loading data, computing delays, and generating visualisations.</p>
+  <div class="code-block">
+    <div class="code-header">
+      <span class="code-filename">turnaround_analysis.py</span>
+      <span class="code-lang">Python</span>
+    </div>
+    <pre><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load ground handling event data
+df = pd.read_csv('ground_handling_data.csv', parse_dates=['start_time', 'end_time'])
+
+# Calculate duration for each task
+df['duration_mins'] = (df['end_time'] - df['start_time']).dt.total_seconds() / 60
+
+# Compute delay: actual vs target duration
+df['delay_mins'] = df['duration_mins'] - df['target_duration']
+df['is_delayed'] = df['delay_mins'] > 0
+
+# Identify most common bottleneck tasks
+bottlenecks = (
+    df[df['is_delayed']]
+    .groupby('task')['delay_mins']
+    .agg(['mean', 'count'])
+    .rename(columns={'mean': 'avg_delay', 'count': 'frequency'})
+    .sort_values('avg_delay', ascending=False)
+)
+
+# Visualise
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+sns.barplot(data=bottlenecks.reset_index(),
+            x='avg_delay', y='task', ax=axes[0], palette='Blues_r')
+axes[0].set_title('Average Delay by Task (minutes)')
+
+sns.heatmap(df.pivot_table(values='delay_mins',
+            index='flight_id', columns='task'),
+            cmap='RdYlGn_r', ax=axes[1])
+axes[1].set_title('Delay Heatmap by Flight')
+
+plt.tight_layout()
+plt.savefig('turnaround_analysis.png', dpi=150, bbox_inches='tight')
+plt.show()
+</code></pre>
+  </div>
+
+  <div class="preview-box" style="margin-top:2rem;">
+    <div class="preview-bar">
+      <span class="pb-dot red"></span>
+      <span class="pb-dot yellow"></span>
+      <span class="pb-dot green"></span>
+      <span class="pb-url">Live Output / GitHub Repository</span>
+    </div>
+    <div class="preview-placeholder">
+      <i class="fa-brands fa-github"></i>
+      <div>
+        <strong>View Full Project on GitHub</strong>
+        <p>Share your repo URL to embed the live output charts and full script directly here.</p>
+      </div>
+      <a href="GITHUB_REPO_URL_HERE" target="_blank" class="btn btn-ghost" style="margin-top:0.5rem;">
+        <i class="fa-brands fa-github"></i> Open Repository
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="content-section alt-bg">
+  <h2>Methodology</h2>
+  <div class="steps">
+    <div class="step"><div class="step-num"></div><div><h3>Data Preparation</h3><p>Loaded and cleaned timestamped ground handling logs. Parsed datetime columns and handled missing values.</p></div></div>
+    <div class="step"><div class="step-num"></div><div><h3>Delay Calculation</h3><p>Computed actual vs target duration for each ground task. Flagged any task exceeding its target as a delay event.</p></div></div>
+    <div class="step"><div class="step-num"></div><div><h3>Bottleneck Ranking</h3><p>Grouped by task type to find average delay magnitude and frequency — ranking which tasks cause the most disruption.</p></div></div>
+    <div class="step"><div class="step-num"></div><div><h3>Visualisation</h3><p>Generated bar charts and heatmaps to communicate findings clearly to a non-technical audience.</p></div></div>
+  </div>
+</div>
+
+<div class="content-section">
+  <h2>Key Findings</h2>
+  <ul>
+    <li>Baggage loading was the most frequent source of turnaround delay</li>
+    <li>Catering delays had the highest average delay duration when they occurred</li>
+    <li>Flights in the 08:00–10:00 window showed significantly higher delay rates</li>
+    <li>Proposed a staggered task start protocol to reduce cascade risk</li>
+  </ul>
+</div>
+
+<footer>
+  <span>© 2026 Ayush Verma</span>
+  <a href="../index.html#projects">← Back to all projects</a>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>
