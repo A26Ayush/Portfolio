@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logistics BI Dashboard — Ayush Verma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#0a0d14; --bg2:#0f1320; --bg3:#141826;
+      --border:rgba(255,255,255,0.09); --accent:#4f8ef7; --accent2:#7c5cfc;
+      --text:#ffffff; --body:#c8d0e0; --muted:#8a95ad; --card:#111520;
+    }
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg); color:var(--body); font-family:'Inter',sans-serif; line-height:1.7; }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1.1rem 6vw; background:rgba(10,13,20,0.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+    .nav-logo { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.2rem; background:linear-gradient(135deg,var(--accent),var(--accent2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; }
+    .nav-back { display:flex; align-items:center; gap:0.5rem; color:var(--muted); text-decoration:none; font-size:0.88rem; font-weight:500; transition:color 0.2s; }
+    .nav-back:hover { color:var(--text); }
+    .hero { padding:9rem 6vw 5rem; position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
+    .hero-glow { position:absolute; top:-20%; right:-5%; width:50vw; height:50vw; max-width:600px; background:radial-gradient(circle,rgba(79,142,247,0.12) 0%,transparent 65%); pointer-events:none; }
+    .hero-inner { max-width:760px; position:relative; z-index:1; }
+    .badge { display:inline-flex; align-items:center; gap:0.5rem; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); background:rgba(79,142,247,0.1); border:1px solid rgba(79,142,247,0.28); padding:0.35rem 0.95rem; border-radius:100px; margin-bottom:1.5rem; }
+    h1 { font-family:'Space Grotesk',sans-serif; font-size:clamp(2rem,4.5vw,3.2rem); font-weight:700; line-height:1.15; color:var(--text); margin-bottom:1.2rem; }
+    .lead { font-size:1.05rem; color:var(--body); max-width:620px; margin-bottom:2rem; }
+    .tags { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:2rem; }
+    .tag { font-size:0.78rem; font-weight:600; padding:0.35rem 0.8rem; background:rgba(79,142,247,0.1); border:1px solid rgba(79,142,247,0.25); border-radius:6px; color:var(--accent); }
+    .actions { display:flex; gap:1rem; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:0.5rem; padding:0.75rem 1.6rem; border-radius:8px; font-size:0.9rem; font-weight:600; text-decoration:none; transition:all 0.22s; cursor:pointer; border:none; }
+    .btn-primary { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; }
+    .btn-primary:hover { opacity:0.85; transform:translateY(-2px); box-shadow:0 8px 24px rgba(79,142,247,0.3); }
+    .btn-ghost { background:transparent; color:var(--text); border:1px solid var(--border); }
+    .btn-ghost:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
+    .sec { padding:5rem 6vw; }
+    .sec+.sec { border-top:1px solid var(--border); }
+    .alt { background:var(--bg2); }
+    h2 { font-family:'Space Grotesk',sans-serif; font-size:clamp(1.4rem,3vw,1.9rem); font-weight:700; color:var(--text); margin-bottom:1.1rem; }
+    h3 { font-size:0.95rem; font-weight:700; color:var(--text); margin-bottom:0.4rem; }
+    p { color:var(--body); margin-bottom:1rem; }
+    ul { color:var(--body); padding-left:1.4rem; margin-bottom:1rem; }
+    li { margin-bottom:0.4rem; }
+    .meta-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .meta-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.1rem; }
+    .meta-label { font-size:0.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.3rem; }
+    .meta-value { font-size:0.92rem; font-weight:600; color:var(--text); }
+    /* Data model diagram */
+    .table-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:0.8rem; margin-top:1.5rem; }
+    .table-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:0.9rem 1rem; transition:border-color 0.2s,transform 0.2s; }
+    .table-card:hover { border-color:rgba(79,142,247,0.45); transform:translateY(-2px); }
+    .table-card-icon { font-size:1.2rem; margin-bottom:0.4rem; }
+    .table-card-name { font-size:0.82rem; font-weight:700; color:var(--text); }
+    .table-card-desc { font-size:0.7rem; color:var(--muted); margin-top:0.2rem; }
+    /* Pages preview */
+    .pages-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .page-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.2rem; transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s; }
+    .page-card:hover { border-color:rgba(79,142,247,0.45); transform:translateY(-3px); box-shadow:0 8px 24px rgba(79,142,247,0.1); }
+    .page-card-icon { width:36px; height:36px; border-radius:8px; background:linear-gradient(135deg,rgba(79,142,247,0.15),rgba(124,92,252,0.15)); display:flex; align-items:center; justify-content:center; font-size:0.95rem; color:var(--accent); margin-bottom:0.7rem; }
+    .page-card-name { font-size:0.85rem; font-weight:700; color:var(--text); margin-bottom:0.3rem; }
+    .page-card-desc { font-size:0.72rem; color:var(--muted); line-height:1.4; }
+    .preview-box { background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden; margin-top:1.5rem; }
+    .preview-bar { display:flex; align-items:center; gap:0.5rem; padding:0.85rem 1.2rem; background:var(--bg3); border-bottom:1px solid var(--border); }
+    .pd { width:12px; height:12px; border-radius:50%; }
+    .pd.r{background:#ff5f57;} .pd.y{background:#ffbd2e;} .pd.g{background:#28c840;}
+    .preview-url { flex:1; text-align:center; font-size:0.78rem; color:var(--muted); background:var(--bg); border-radius:6px; padding:0.25rem 0.8rem; }
+    .preview-ph { height:380px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; color:var(--muted); text-align:center; padding:2rem; }
+    .preview-ph i { font-size:3rem; color:var(--accent); opacity:0.4; }
+    .preview-ph strong { color:var(--text); font-size:1.1rem; display:block; margin-bottom:0.3rem; }
+    .preview-ph p { font-size:0.85rem; max-width:380px; margin:0; }
+    footer { border-top:1px solid var(--border); padding:1.8rem 6vw; display:flex; align-items:center; justify-content:space-between; color:var(--muted); font-size:0.82rem; }
+    footer a { color:var(--muted); text-decoration:none; }
+    footer a:hover { color:var(--accent); }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">AV.</a>
+  <a href="../index.html#projects" class="nav-back"><i class="fa-solid fa-arrow-left"></i> Back to Portfolio</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="badge"><i class="fa-solid fa-truck-fast"></i> Power BI · Logistics</div>
+    <h1>Logistics Business Intelligence Dashboard</h1>
+    <p class="lead">
+      A multi-page interactive Power BI dashboard that monitors the full operational health
+      of a transportation business — from revenue and fleet utilisation to driver performance,
+      fuel costs, and safety incidents.
+    </p>
+    <div class="tags">
+      <span class="tag">Power BI</span>
+      <span class="tag">Power Query</span>
+      <span class="tag">DAX</span>
+      <span class="tag">Data Modelling</span>
+      <span class="tag">KPI Design</span>
+    </div>
+    <div class="actions">
+      <a href="https://github.com/A26Ayush/Logistics-PowerBI-Dashboard" target="_blank" class="btn btn-primary"><i class="fa-brands fa-github"></i> View on GitHub</a>
+      <a href="#dashboard-pages" class="btn btn-ghost"><i class="fa-solid fa-eye"></i> Explore Pages</a>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>Project Overview</h2>
+  <p>
+    Transportation companies generate enormous operational data — but without a clear view of it,
+    decisions stay reactive. This dashboard consolidates nine data sources into a unified BI
+    solution, giving operations managers a real-time snapshot of every dimension of their business.
+  </p>
+  <div class="meta-grid">
+    <div class="meta-card"><div class="meta-label">Tool</div><div class="meta-value">Power BI</div></div>
+    <div class="meta-card"><div class="meta-label">Data Tables</div><div class="meta-value">9 Interconnected</div></div>
+    <div class="meta-card"><div class="meta-label">Domain</div><div class="meta-value">Logistics / Transportation</div></div>
+    <div class="meta-card"><div class="meta-label">Status</div><div class="meta-value">✅ Completed</div></div>
+  </div>
+</div>
+
+<div class="sec alt">
+  <h2>Data Model — 9 Tables</h2>
+  <p>All nine tables are related through primary/foreign keys in Power BI's data model, enabling cross-filtering across every dashboard page.</p>
+  <div class="table-grid">
+    <div class="table-card"><div class="table-card-icon">👥</div><div class="table-card-name">Customers</div><div class="table-card-desc">Client accounts & revenue attribution</div></div>
+    <div class="table-card"><div class="table-card-icon">🧑‍✈️</div><div class="table-card-name">Drivers</div><div class="table-card-desc">Driver profiles & performance records</div></div>
+    <div class="table-card"><div class="table-card-icon">🚛</div><div class="table-card-name">Trucks</div><div class="table-card-desc">Fleet asset details & capacity</div></div>
+    <div class="table-card"><div class="table-card-icon">🚌</div><div class="table-card-name">Trailers</div><div class="table-card-desc">Trailer inventory & assignment</div></div>
+    <div class="table-card"><div class="table-card-icon">📋</div><div class="table-card-name">Trips</div><div class="table-card-desc">Trip logs, revenue & dates</div></div>
+    <div class="table-card"><div class="table-card-icon">🗺️</div><div class="table-card-name">Routes</div><div class="table-card-desc">Route definitions & distances</div></div>
+    <div class="table-card"><div class="table-card-icon">⛽</div><div class="table-card-name">Fuel</div><div class="table-card-desc">Purchase records & cost per km</div></div>
+    <div class="table-card"><div class="table-card-icon">🔧</div><div class="table-card-name">Maintenance</div><div class="table-card-desc">Repair history & downtime</div></div>
+    <div class="table-card"><div class="table-card-icon">⚠️</div><div class="table-card-name">Safety</div><div class="table-card-desc">Incident reports by location</div></div>
+  </div>
+</div>
+
+<div id="dashboard-pages" class="sec">
+  <h2>Dashboard Pages</h2>
+  <p>Each page focuses on a specific operational dimension, enabling managers to drill into what matters most.</p>
+  <div class="pages-grid">
+    <div class="page-card"><div class="page-card-icon"><i class="fa-solid fa-dollar-sign"></i></div><div class="page-card-name">Revenue Overview</div><div class="page-card-desc">Revenue trends, top customers, and profitability by route</div></div>
+    <div class="page-card"><div class="page-card-icon"><i class="fa-solid fa-truck"></i></div><div class="page-card-name">Fleet Utilisation</div><div class="page-card-desc">Truck & trailer usage rates, idle time, and capacity gaps</div></div>
+    <div class="page-card"><div class="page-card-icon"><i class="fa-solid fa-user-tie"></i></div><div class="page-card-name">Driver Performance</div><div class="page-card-desc">Trip counts, reliability scores, and driver revenue ranking</div></div>
+    <div class="page-card"><div class="page-card-icon"><i class="fa-solid fa-route"></i></div><div class="page-card-name">Route Analysis</div><div class="page-card-desc">Highest and lowest performing routes by revenue and cost</div></div>
+    <div class="page-card"><div class="page-card-icon"><i class="fa-solid fa-gas-pump"></i></div><div class="page-card-name">Fuel Costs</div><div class="page-card-desc">Fuel spend breakdown, cost/km trends, and variance analysis</div></div>
+    <div class="page-card"><div class="page-card-icon"><i class="fa-solid fa-triangle-exclamation"></i></div><div class="page-card-name">Safety Incidents</div><div class="page-card-desc">Geographic incident heatmap and frequency by driver/route</div></div>
+  </div>
+</div>
+
+<div class="sec alt">
+  <h2>Live Dashboard Preview</h2>
+  <p>The full .pbix file is available on GitHub. Download and open in Power BI Desktop to explore all pages interactively.</p>
+  <div class="preview-box">
+    <div class="preview-bar">
+      <span class="pd r"></span><span class="pd y"></span><span class="pd g"></span>
+      <span class="preview-url">github.com/A26Ayush/Logistics-PowerBI-Dashboard</span>
+    </div>
+    <div class="preview-ph">
+      <i class="fa-solid fa-chart-bar"></i>
+      <div>
+        <strong>Power BI Report — Download to Explore</strong>
+        <p>Power BI reports run natively in Power BI Desktop or the Power BI service. Download the .pbix from GitHub to interact with all 6 dashboard pages.</p>
+      </div>
+      <a href="https://github.com/A26Ayush/Logistics-PowerBI-Dashboard" target="_blank" class="btn btn-ghost" style="margin-top:0.5rem;">
+        <i class="fa-brands fa-github"></i> Download .pbix on GitHub
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <h2>Key Insights Enabled</h2>
+  <ul>
+    <li>Identify top-performing routes and customers driving the most revenue</li>
+    <li>Spot under-utilised fleet assets increasing fixed costs without output</li>
+    <li>Correlate fuel cost variance with driver behaviour and route length</li>
+    <li>Track geographic safety risk concentration to reduce incident rates</li>
+    <li>Monitor maintenance frequency per vehicle to predict downtime</li>
+  </ul>
+</div>
+
+<footer>
+  <span>© 2026 Ayush Verma</span>
+  <a href="../index.html#projects">← Back to all projects</a>
+</footer>
+</body>
+</html>
