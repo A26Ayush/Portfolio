@@ -98,9 +98,9 @@
     }
     .hero-inner {
       display: flex; align-items: center; justify-content: space-between;
-      gap: 2rem; width: 100%; position: relative; z-index: 1;
+      gap: 3rem; width: 100%; position: relative; z-index: 1;
     }
-    .hero-content { max-width: 620px; flex: 1; }
+    .hero-content { flex: 1; min-width: 0; }
     .hero-tag {
       display: inline-flex; align-items: center; gap: 0.5rem;
       font-size: 0.78rem; font-weight: 600; letter-spacing: 0.13em;
@@ -111,7 +111,7 @@
     .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
       font-weight: 700; line-height: 1.1; color: var(--text);
       margin-bottom: 1.2rem;
     }
@@ -120,7 +120,7 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .hero-sub {
-      font-size: 1.1rem; color: var(--body); max-width: 520px;
+      font-size: 1.1rem; color: var(--body); max-width: 100%;
       margin-bottom: 1.2rem; line-height: 1.75;
     }
     .hero-location {
@@ -436,7 +436,7 @@
   <div class="hero-inner">
     <div class="hero-content">
       <div class="hero-tag">Supply Chain &amp; Data Analyst</div>
-      <h1>Hi, I'm <span>Ayush Verma.</span><br/>I turn Ideas, Data and<br/>Operations into Insights</h1>
+      <h1>Hi, I'm <span>Ayush Verma.</span><br/>I turn Ideas, Data and Operations into Insights</h1>
       <p class="hero-sub">
         Calgary-based graduate bridging supply chain management and data analytics —
         with hands-on experience across aviation, warehouse operations, and retail.
